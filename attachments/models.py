@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from datetime import datetime
 import os
 from django.db import models
@@ -34,7 +35,7 @@ class Attachment(models.Model):
     attachment_file = models.FileField(_('attachment'), upload_to=attachment_upload)
     created = models.DateTimeField(_('created'), auto_now_add=True)
     modified = models.DateTimeField(_('modified'), auto_now=True)
-    proyecto =  models.ForeignKey(Proyecto, related_name='documentacion') #Redudante, depurar cuando se suba en formans nomales eliminándolo.
+    proyecto =  models.ForeignKey(Proyecto, related_name='documentacion')
 
     class Meta:
         ordering = ['-created']
