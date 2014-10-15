@@ -5,6 +5,7 @@ from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes import generic
 from django.utils.translation import ugettext_lazy as _
+from esgiso.models import Proyecto
 
 # From https://github.com/etianen/django-reversion/pull/206/files
 UserModel = getattr(settings, 'AUTH_USER_MODEL', 'auth.User') 
@@ -33,6 +34,7 @@ class Attachment(models.Model):
     attachment_file = models.FileField(_('attachment'), upload_to=attachment_upload)
     created = models.DateTimeField(_('created'), auto_now_add=True)
     modified = models.DateTimeField(_('modified'), auto_now=True)
+    proyecto =  models.ForeignKey(Proyecto, related_name='documentacion') #Redudante, depurar cuando se suba en formans nomales eliminándolo.
 
     class Meta:
         ordering = ['-created']
