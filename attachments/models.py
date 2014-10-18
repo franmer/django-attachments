@@ -19,9 +19,9 @@ class AttachmentManager(models.Manager):
 
 class Attachment(models.Model):
     def attachment_upload(instance, filename):
-        """Stores the attachment in a "per module/appname/primary key" folder"""
-        return 'attachments/%s/%s/%s' % (
-            '%s_%s' % (instance.content_object._meta.app_label,
+        """Stores the attachment in a "per project/module/appname/primary key" folder"""
+        return 'attachments/%s/%s/%s/%s' % (
+            '%s_%s' % (instance.content_object.proyecto.pk, instance.content_object._meta.app_label,
                        instance.content_object._meta.object_name.lower()),
                        instance.content_object.pk,
                        filename)
@@ -42,6 +42,7 @@ class Attachment(models.Model):
         permissions = (
             ('delete_foreign_attachments', 'Can delete foreign attachments'),
         )
+        verbose_name = "Adjunto"
 
     def __unicode__(self):
         return '%s attached %s' % (self.creator.get_username(), self.attachment_file.name)
