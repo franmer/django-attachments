@@ -31,8 +31,8 @@ class Attachment(models.Model):
     content_type = models.ForeignKey(ContentType)
     object_id = models.PositiveIntegerField()
     content_object = generic.GenericForeignKey('content_type', 'object_id')
-    creator = models.ForeignKey(settings.AUTH_USER_MODEL, related_name="created_attachments", verbose_name=_('creador'))
-    attachment_file = models.FileField(_('attachment'), verbose_name=_('Adjunto'), upload_to=attachment_upload)
+    creator = models.ForeignKey(settings.AUTH_USER_MODEL, related_name="created_attachments")
+    attachment_file = models.FileField(_('attachment'), verbose_name=_('Documento'), upload_to=attachment_upload)
     created = models.DateTimeField(_('created'), auto_now_add=True)
     modified = models.DateTimeField(_('modified'), auto_now=True)
     proyecto =  models.ForeignKey(Proyecto, related_name='documentacion')
@@ -42,10 +42,10 @@ class Attachment(models.Model):
         permissions = (
             ('delete_foreign_attachments', 'Can delete foreign attachments'),
         )
-        verbose_name = "Adjunto"
+        verbose_name = "Documento"
 
     def __unicode__(self):
-        return '%s attached %s' % (self.creator.get_username(), self.attachment_file.name)
+        return '%s adjuntó %s' % (self.creator.get_username(), self.attachment_file.name)
 
     @property
     def filename(self):
